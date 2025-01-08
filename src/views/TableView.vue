@@ -11,32 +11,32 @@
       </div>
     </navComponent>
 
-    <div class="grid grid-rows-2 grid-cols-7 gap-11">
-      <div class="bg-pink-500 w-40 h-52 col-span-3">
+    <div class="grid grid-rows-2 grid-cols-7 gap-3 pl-5 pr-80">
+      <div class="w-28 h-36 border-2 col-span-3 border-pink-500 rounded-xl">
         <div v-for="carta, index in cartas" :key="index" v-show="index === 0" :draggable="true"
-          @dragstart="onDragStart(carta)" class="bg-blue-500 w-40 h-52 ">
+          @dragstart="onDragStart(carta)" class="bg-blue-500 w-28 h-36 rounded-xl ">
           <p>{{ carta.numero }}</p>
           <p>{{ carta.forma }}</p>
           <p>{{ carta.color }}</p>
         </div>
       </div>
-      <div class="bg-pink-500 w-40 h-52" @dragover.prevent @drop="onDrop">
+      <div class="w-28 h-36 border-2 border-pink-500 rounded-xl" @dragover.prevent @drop="onDrop">
         <div v-for="carta, index in contenedorCarta" :key="index" v-show="index == contenedorCarta.length - 1" class="bg-blue-500 w-40 h-52 ">
           <p>{{ carta.numero }}</p>
           <p>{{ carta.forma }}</p>
           <p>{{ carta.color }}</p>
         </div>
       </div>
-      <div class="bg-pink-500 w-40 h-52"></div>
-      <div class="bg-pink-500 w-40 h-52"></div>
-      <div class="bg-pink-500 w-40 h-52"></div>
-      <div class="bg-pink-500 w-40 h-52"></div>
-      <div class="bg-pink-500 w-40 h-52"></div>
-      <div class="bg-pink-500 w-40 h-52"></div>
-      <div class="bg-pink-500 w-40 h-52"></div>
-      <div class="bg-pink-500 w-40 h-52"></div>
-      <div class="bg-pink-500 w-40 h-52"></div>
-      <div class="bg-pink-500 w-40 h-52"></div>
+      <div class="w-28 h-36 border-2 border-pink-500 rounded-xl"></div>
+      <div class="w-28 h-36 border-2 border-pink-500 rounded-xl"></div>
+      <div class="w-28 h-36 border-2 border-pink-500 rounded-xl"></div>
+      <div class="w-28 h-36 border-2 border-pink-500 rounded-xl"></div>
+      <div class="w-28 h-36 border-2 border-pink-500 rounded-xl"></div>
+      <div class="w-28 h-36 border-2 border-pink-500 rounded-xl"></div>
+      <div class="w-28 h-36 border-2 border-pink-500 rounded-xl"></div>
+      <div class="w-28 h-36 border-2 border-pink-500 rounded-xl"></div>
+      <div class="w-28 h-36 border-2 border-pink-500 rounded-xl"></div>
+      <div class="w-28 h-36 border-2 border-pink-500 rounded-xl"></div>
 
     </div>
     <footerTable />
