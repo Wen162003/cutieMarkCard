@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col justify-between pt-32">
+  <div class="flex flex-col justify-between pt-24">
     <navComponent>
       <div class="flex  justify-end gap-4">
         <button-component>
@@ -37,7 +37,6 @@
       <div class="w-28 h-36 border-2 border-pink-500 rounded-xl"></div>
       <div class="w-28 h-36 border-2 border-pink-500 rounded-xl"></div>
       <div class="w-28 h-36 border-2 border-pink-500 rounded-xl"></div>
-
     </div>
     <footerTable />
   </div>
