@@ -21,46 +21,46 @@
         </div>
       </div>
       <div class="w-28 h-36 border-2 border-pink-500 rounded-xl" @dragover.prevent @drop="onDrop('contenedor1')">
-      <div v-for="carta, index in contenedorCarta" :key="index" v-show="index == contenedorCarta.length - 1"
-        class="bg-blue-500 w-28 h-36 rounded-xl ">
-        <p>{{ carta.numero }}</p>
-        <p>{{ carta.forma }}</p>
-        <p>{{ carta.color }}</p>
+        <div v-for="carta, index in contenedorCarta" :key="index" v-show="index == contenedorCarta.length - 1"
+          class="bg-blue-500 w-28 h-36 rounded-xl ">
+          <p>{{ carta.numero }}</p>
+          <p>{{ carta.forma }}</p>
+          <p>{{ carta.color }}</p>
+        </div>
       </div>
-    </div>
-    <div class="w-28 h-36 border-2 border-pink-500 rounded-xl" @dragover.prevent @drop="onDrop('contenedor2')">
-      <div v-for="carta, index in contenedorCarta2" :key="index" v-show="index == contenedorCarta2.length - 1"
-        class="bg-blue-500 w-28 h-36 rounded-xl ">
-        <p>{{ carta.numero }}</p>
-        <p>{{ carta.forma }}</p>
-        <p>{{ carta.color }}</p>
+      <div class="w-28 h-36 border-2 border-pink-500 rounded-xl" @dragover.prevent @drop="onDrop('contenedor2')">
+        <div v-for="carta, index in contenedorCarta2" :key="index" v-show="index == contenedorCarta2.length - 1"
+          class="bg-blue-500 w-28 h-36 rounded-xl ">
+          <p>{{ carta.numero }}</p>
+          <p>{{ carta.forma }}</p>
+          <p>{{ carta.color }}</p>
+        </div>
       </div>
-    </div>
-    <div class="w-28 h-36 border-2 border-pink-500 rounded-xl" @dragover.prevent @drop="onDrop('contenedor3')">
-      <div v-for="carta, index in contenedorCarta3" :key="index" v-show="index == contenedorCarta3.length - 1"
-        class="bg-blue-500 w-28 h-36 rounded-xl ">
-        <p>{{ carta.numero }}</p>
-        <p>{{ carta.forma }}</p>
-        <p>{{ carta.color }}</p>
+      <div class="w-28 h-36 border-2 border-pink-500 rounded-xl" @dragover.prevent @drop="onDrop('contenedor3')">
+        <div v-for="carta, index in contenedorCarta3" :key="index" v-show="index == contenedorCarta3.length - 1"
+          class="bg-blue-500 w-28 h-36 rounded-xl ">
+          <p>{{ carta.numero }}</p>
+          <p>{{ carta.forma }}</p>
+          <p>{{ carta.color }}</p>
+        </div>
       </div>
-    </div>
-    <div class="w-28 h-36 border-2 border-pink-500 rounded-xl" @dragover.prevent @drop="onDrop('contenedor4')">
-      <div v-for="carta, index in contenedorCarta4" :key="index" v-show="index == contenedorCarta4.length - 1"
-        class="bg-blue-500 w-28 h-36 rounded-xl ">
-        <p>{{ carta.numero }}</p>
-        <p>{{ carta.forma }}</p>
-        <p>{{ carta.color }}</p>
+      <div class="w-28 h-36 border-2 border-pink-500 rounded-xl" @dragover.prevent @drop="onDrop('contenedor4')">
+        <div v-for="carta, index in contenedorCarta4" :key="index" v-show="index == contenedorCarta4.length - 1"
+          class="bg-blue-500 w-28 h-36 rounded-xl ">
+          <p>{{ carta.numero }}</p>
+          <p>{{ carta.forma }}</p>
+          <p>{{ carta.color }}</p>
+        </div>
       </div>
+      <div class="w-28 h-36 border-2 border-pink-500 rounded-xl"></div>
+      <div class="w-28 h-36 border-2 border-pink-500 rounded-xl"></div>
+      <div class="w-28 h-36 border-2 border-pink-500 rounded-xl"></div>
+      <div class="w-28 h-36 border-2 border-pink-500 rounded-xl"></div>
+      <div class="w-28 h-36 border-2 border-pink-500 rounded-xl"></div>
+      <div class="w-28 h-36 border-2 border-pink-500 rounded-xl"></div>
+      <div class="w-28 h-36 border-2 border-pink-500 rounded-xl"></div>
     </div>
-    <div class="w-28 h-36 border-2 border-pink-500 rounded-xl"></div>
-    <div class="w-28 h-36 border-2 border-pink-500 rounded-xl"></div>
-    <div class="w-28 h-36 border-2 border-pink-500 rounded-xl"></div>
-    <div class="w-28 h-36 border-2 border-pink-500 rounded-xl"></div>
-    <div class="w-28 h-36 border-2 border-pink-500 rounded-xl"></div>
-    <div class="w-28 h-36 border-2 border-pink-500 rounded-xl"></div>
-    <div class="w-28 h-36 border-2 border-pink-500 rounded-xl"></div>
-  </div>
-  <footerTable />
+    <footerTable />
   </div>
 </template>
 
@@ -161,6 +161,7 @@ const validacion = (dato, contenedor) => {
           return false;
         }
       } else {
+
         return true;
       }
     case 'contenedor2':
@@ -170,10 +171,14 @@ const validacion = (dato, contenedor) => {
         if (primeraCarta.forma === dato.forma) {
           return true;
         } else {
-          return false;
+          return false
         }
       } else {
-        return true;
+        if (validarTipo(dato.forma)) {
+          return true;
+        } else {
+          return false
+        }
       }
     case 'contenedor3':
       contador = contenedorCarta3.value.length
@@ -237,11 +242,9 @@ const onDrop = (contenedor) => {
         break;
       case 'contenedor2':
         if (respuesta === true) {
-          if (validarTipo(cartaJson.forma)) {
-            contenedorCarta2.value.push(cartaJson);
-            let posicion = cartas.value.findIndex(carta => carta.id === cartaJson.id)
-            cartas.value.splice(posicion, 1)
-          }
+          contenedorCarta2.value.push(cartaJson);
+          let posicion = cartas.value.findIndex(carta => carta.id === cartaJson.id)
+          cartas.value.splice(posicion, 1)
         } else {
           console.log("No se guarda");
         }
