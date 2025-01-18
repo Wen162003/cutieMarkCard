@@ -1,7 +1,7 @@
 <template>
   <div>
-    <nav class="flex bg-purple-400 w-full p-4 fixed top-0 justify-between">
-      <p class="text-3xl">Cutie Mark Card</p>
+    <nav class="flex bg-customYellow w-full fixed px-10 p-1 top-0 justify-between items-center">
+      <img class="w-auto h-16" src="../assets/logoCard.png" alt="logo">
       <slot>
       </slot>
     </nav>
