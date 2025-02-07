@@ -1,5 +1,5 @@
 <template>
-  <footer class="flex bg-purple-800 w-full fixed bottom-0 px-32">
+  <footer class="flex bg-opacity-5 bg-purple-800 w-full fixed bottom-0 px-32">
     <div class="flex gap-4 w-1/2">
       <button v-if="primerBoton" @click="modoOscuro">
         <svg

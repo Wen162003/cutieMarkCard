@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col justify-between pt-24">
+  <div class="flex flex-col justify-start pt-24 h-screen">
     <navComponent>
       <div class="flex justify-end gap-4">
         <button type="button"
@@ -25,7 +25,7 @@
 
       <div class="w-28 h-36 border-2 col-span-2 border-pink-300 rounded-xl">
         <div v-for="(carta, index) in contenedorCartaOpciones" :key="index" style="user-select: none;" :draggable="true"
-          @dragstart="onDragStart(carta)" @dragend="finArrastre()" v-show="index == (contenedorCartaOpciones.length - resta)"
+          @dragstart="onDragStart(carta)" v-show="index == (contenedorCartaOpciones.length - 1)"
           class="bg-blue-500 w-28 h-36 rounded-xl cursor-grab">
           <p>{{ carta.numero }}</p>
           <p>{{ carta.forma }}</p>
@@ -65,7 +65,14 @@
           <p>{{ carta.color }}</p>
         </div>
       </div>
-      <div class="w-28 h-36 border-2 border-pink-500 rounded-xl"></div>
+      <div class="w-28 h-36 border-2  border-pink-500 rounded-xl">
+        <div v-for="(carta, index) in contenedorCarta5" :key="index"
+          class="bg-blue-500 border-2  border-pink-950 w-28 h-36 rounded-xl" :style="claseCarta(index)" >
+          <p>{{ carta.numero }}</p>
+          <p>{{ carta.forma }}</p>
+          <p>{{ carta.color }}</p>
+        </div>
+      </div>
       <div class="w-28 h-36 border-2 border-pink-500 rounded-xl"></div>
       <div class="w-28 h-36 border-2 border-pink-500 rounded-xl"></div>
       <div class="w-28 h-36 border-2 border-pink-500 rounded-xl"></div>
@@ -141,8 +148,35 @@ const contenedorCarta2 = ref([])
 const contenedorCarta3 = ref([])
 const contenedorCarta4 = ref([])
 
-const arrastrando = ref(false)
-const resta= ref(1)
+const contenedorCarta5 = ref([
+  {
+    id: 1,
+    color: 'rosado',
+    numero: 1,
+    forma: 'mariposa',
+  },
+  {
+    id: 2,
+    color: 'morado',
+    numero: 1,
+    forma: 'manzana',
+  },
+  {
+    id: 3,
+    color: 'blue',
+    numero: 2,
+    forma: 'manzana',
+  },
+])
+
+const claseCarta = (index) => {
+  if(index == 0){
+    return { marginTop: `0 px` };
+  }else{
+    let postion = index + 120;
+    return { marginTop: `-${postion}px` };
+  }
+}
 
 
 const validarTipo = (forma) => {
@@ -266,13 +300,6 @@ const onDragStart = (carta) => {
   // Guardar el elemento en el almacenamiento de datos arrastrados
   const cartaTexto = JSON.stringify(carta)
   localStorage.setItem('draggedItem', cartaTexto)
-  arrastrando.value = true
-  resta.value=2
-}
-
-const finArrastre = () => {
-  arrastrando.value = false
-  resta.value= 1;
 }
 
 
