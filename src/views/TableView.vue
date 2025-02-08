@@ -1,84 +1,179 @@
 <template>
-  <div class="flex flex-col justify-start pt-24 h-screen">
+  <div class="relative flex flex-col justify-start pt-24 h-screen">
+    <img src="../assets/Fondo2.png" alt="Fondo" class="absolute top-10 object-fill -z-10" />
     <navComponent>
       <div class="flex justify-end gap-4">
-        <button type="button"
-          class="text-white bg-gradient-to-r bg-customPinkclaro via-pink-500 to-pink-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-pink-300 dark:focus:ring-pink-800 shadow-lg shadow-pink-500/50 dark:shadow-lg dark:shadow-pink-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
-          deshacer
+        <button
+          type="button"
+          class="text-white bg-gradient-to-r flex gap-1 from-[#6b4226] via-[#6b4226] to-[#6b4226] hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-[#8b5a2b] dark:focus:ring-[#5a3e36] shadow-lg shadow-[#8b5a2b]/50 dark:shadow-lg dark:shadow-[#5a3e36]/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-undo-2"
+          >
+            <path d="M9 14 4 9l5-5" />
+            <path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5a5.5 5.5 0 0 1-5.5 5.5H11" />
+          </svg>
+          <p>deshacer</p>
         </button>
-        <button type="button"
-          class="text-white bg-gradient-to-r bg-customPinkclaro via-pink-500 to-pink-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-pink-300 dark:focus:ring-pink-800 shadow-lg shadow-pink-500/50 dark:shadow-lg dark:shadow-pink-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
-          Menu
+        <button
+          type="button"
+          class="text-white flex gap-1 bg-gradient-to-r from-[#6b4226] via-[#6b4226] to-[#6b4226] hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-[#8b5a2b] dark:focus:ring-[#5a3e36] shadow-lg shadow-[#8b5a2b]/50 dark:shadow-lg dark:shadow-[#5a3e36]/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-align-justify"
+          >
+            <path d="M3 12h18" />
+            <path d="M3 18h18" />
+            <path d="M3 6h18" />
+          </svg>
+          <p>Menu</p>
         </button>
       </div>
     </navComponent>
 
     <div class="grid grid-rows-2 grid-cols-7 gap-3 pl-5 pr-80">
-      <div class="w-28 h-36 border-2 border-pink-500 rounded-xl">
-        <div v-for="(carta, index) in cartas" :key="index" v-show="index === 0" @click="moverCarta(carta)"
-          class="bg-blue-500 w-28 h-36 rounded-xl cursor-pointer">
+      <div class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl">
+        <div
+          v-for="(carta, index) in cartas"
+          :key="index"
+          v-show="index === 0"
+          @click="moverCarta(carta)"
+          class="bg-blue-500 w-28 h-36 rounded-xl cursor-pointer"
+        >
           <p>{{ carta.numero }}</p>
           <p>{{ carta.forma }}</p>
           <p>{{ carta.color }}</p>
         </div>
       </div>
 
-      <div class="w-28 h-36 border-2 col-span-2 border-pink-300 rounded-xl">
-        <div v-for="(carta, index) in contenedorCartaOpciones" :key="index" style="user-select: none;" :draggable="true"
-          @dragstart="onDragStart(carta)" v-show="index == (contenedorCartaOpciones.length - 1)"
-          class="bg-blue-500 w-28 h-36 rounded-xl cursor-grab">
+      <div class="w-28 h-36 col-span-2">
+        <div
+          v-for="(carta, index) in contenedorCartaOpciones"
+          :key="index"
+          style="user-select: none"
+          :draggable="true"
+          @dragstart="onDragStart(carta)"
+          v-show="index == contenedorCartaOpciones.length - 1"
+          class="bg-blue-500 w-28 h-36 rounded-xl cursor-grab"
+        >
           <p>{{ carta.numero }}</p>
           <p>{{ carta.forma }}</p>
           <p>{{ carta.color }}</p>
         </div>
       </div>
 
-      <div class="w-28 h-36 border-2 border-pink-500 rounded-xl" @dragover.prevent @drop="onDrop('contenedor1')">
-        <div v-for="(carta, index) in contenedorCarta" :key="index" v-show="index == contenedorCarta.length - 1"
-          class="bg-blue-500 w-28 h-36 rounded-xl">
+      <div
+        class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl"
+        @dragover.prevent
+        @drop="onDrop('contenedor1')"
+      >
+        <div
+          v-for="(carta, index) in contenedorCarta"
+          :key="index"
+          v-show="index == contenedorCarta.length - 1"
+          class="bg-blue-500 w-28 h-36 rounded-xl"
+        >
           <p>{{ carta.numero }}</p>
           <p>{{ carta.forma }}</p>
           <p>{{ carta.color }}</p>
         </div>
       </div>
-      <div class="w-28 h-36 border-2 border-pink-500 rounded-xl" @dragover.prevent @drop="onDrop('contenedor2')">
-        <div v-for="(carta, index) in contenedorCarta2" :key="index" v-show="index == contenedorCarta2.length - 1"
-          class="bg-blue-500 w-28 h-36 rounded-xl">
+      <div
+        class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl"
+        @dragover.prevent
+        @drop="onDrop('contenedor2')"
+      >
+        <div
+          v-for="(carta, index) in contenedorCarta2"
+          :key="index"
+          v-show="index == contenedorCarta2.length - 1"
+          class="bg-blue-500 w-28 h-36 rounded-xl"
+        >
           <p>{{ carta.numero }}</p>
           <p>{{ carta.forma }}</p>
           <p>{{ carta.color }}</p>
         </div>
       </div>
-      <div class="w-28 h-36 border-2 border-pink-500 rounded-xl" @dragover.prevent @drop="onDrop('contenedor3')">
-        <div v-for="(carta, index) in contenedorCarta3" :key="index" v-show="index == contenedorCarta3.length - 1"
-          class="bg-blue-500 w-28 h-36 rounded-xl">
+      <div
+        class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl"
+        @dragover.prevent
+        @drop="onDrop('contenedor3')"
+      >
+        <div
+          v-for="(carta, index) in contenedorCarta3"
+          :key="index"
+          v-show="index == contenedorCarta3.length - 1"
+          class="bg-blue-500 w-28 h-36 rounded-xl"
+        >
           <p>{{ carta.numero }}</p>
           <p>{{ carta.forma }}</p>
           <p>{{ carta.color }}</p>
         </div>
       </div>
-      <div class="w-28 h-36 border-2 border-pink-500 rounded-xl" @dragover.prevent @drop="onDrop('contenedor4')">
-        <div v-for="(carta, index) in contenedorCarta4" :key="index" v-show="index == contenedorCarta4.length - 1"
-          class="bg-blue-500 w-28 h-36 rounded-xl">
+      <div
+        class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl"
+        @dragover.prevent
+        @drop="onDrop('contenedor4')"
+      >
+        <div
+          v-for="(carta, index) in contenedorCarta4"
+          :key="index"
+          v-show="index == contenedorCarta4.length - 1"
+          class="bg-blue-500 w-28 h-36 rounded-xl"
+        >
           <p>{{ carta.numero }}</p>
           <p>{{ carta.forma }}</p>
           <p>{{ carta.color }}</p>
         </div>
       </div>
-      <div class="w-28 h-36 border-2  border-pink-500 rounded-xl">
-        <div v-for="(carta, index) in contenedorCarta5" :key="index"
-          class="bg-blue-500 border-2  border-pink-950 w-28 h-36 rounded-xl" :style="claseCarta(index)" >
+      <div class="w-28 h-36 border-2bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl">
+        <div
+          v-for="(carta, index) in contenedorCarta5"
+          :key="index"
+          class="bg-blue-500 border-2 border-pink-950 w-28 h-36 rounded-xl"
+          :style="claseCarta(index)"
+        >
           <p>{{ carta.numero }}</p>
           <p>{{ carta.forma }}</p>
           <p>{{ carta.color }}</p>
         </div>
       </div>
-      <div class="w-28 h-36 border-2 border-pink-500 rounded-xl"></div>
-      <div class="w-28 h-36 border-2 border-pink-500 rounded-xl"></div>
-      <div class="w-28 h-36 border-2 border-pink-500 rounded-xl"></div>
-      <div class="w-28 h-36 border-2 border-pink-500 rounded-xl"></div>
-      <div class="w-28 h-36 border-2 border-pink-500 rounded-xl"></div>
-      <div class="w-28 h-36 border-2 border-pink-500 rounded-xl"></div>
+      <div
+        class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl"
+      ></div>
+      <div
+        class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl"
+      ></div>
+      <div
+        class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl"
+      ></div>
+      <div
+        class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl"
+      ></div>
+      <div
+        class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl"
+      ></div>
+      <div
+        class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl"
+      ></div>
     </div>
     <footerTable />
   </div>
@@ -87,6 +182,7 @@
 <script setup>
 import navComponent from '@/components/navComponent.vue'
 import footerTable from '@/components/footerTable.vue'
+
 import { ref } from 'vue'
 
 const cartas = ref([
@@ -141,7 +237,6 @@ const tiposCartas = ref({
   globo: false,
 })
 
-
 const contenedorCartaOpciones = ref([])
 const contenedorCarta = ref([])
 const contenedorCarta2 = ref([])
@@ -170,14 +265,13 @@ const contenedorCarta5 = ref([
 ])
 
 const claseCarta = (index) => {
-  if(index == 0){
-    return { marginTop: `0 px` };
-  }else{
-    let postion = index + 120;
-    return { marginTop: `-${postion}px` };
+  if (index == 0) {
+    return { marginTop: `0 px` }
+  } else {
+    let postion = index + 120
+    return { marginTop: `-${postion}px` }
   }
 }
-
 
 const validarTipo = (forma) => {
   switch (forma) {
@@ -295,14 +389,11 @@ const validacion = (dato, contenedor) => {
   }
 }
 
-
 const onDragStart = (carta) => {
   // Guardar el elemento en el almacenamiento de datos arrastrados
   const cartaTexto = JSON.stringify(carta)
   localStorage.setItem('draggedItem', cartaTexto)
 }
-
-
 
 const moverCarta = (carta) => {
   contenedorCartaOpciones.value.push(carta)
@@ -318,11 +409,12 @@ const onDrop = (contenedor) => {
     const respuesta = validacion(cartaJson, contenedor)
 
     switch (contenedor) {
-
       case 'contenedor1':
         if (respuesta) {
           contenedorCarta.value.push(cartaJson)
-          let posicion = contenedorCartaOpciones.value.findIndex((carta) => carta.id === cartaJson.id)
+          let posicion = contenedorCartaOpciones.value.findIndex(
+            (carta) => carta.id === cartaJson.id
+          )
           contenedorCartaOpciones.value.splice(posicion, 1)
         } else {
           console.log('No se guarda')
@@ -331,7 +423,9 @@ const onDrop = (contenedor) => {
       case 'contenedor2':
         if (respuesta === true) {
           contenedorCarta2.value.push(cartaJson)
-          let posicion = contenedorCartaOpciones.value.findIndex((carta) => carta.id === cartaJson.id)
+          let posicion = contenedorCartaOpciones.value.findIndex(
+            (carta) => carta.id === cartaJson.id
+          )
           contenedorCartaOpciones.value.splice(posicion, 1)
         } else {
           console.log('No se guarda')
@@ -340,7 +434,9 @@ const onDrop = (contenedor) => {
       case 'contenedor3':
         if (respuesta === true) {
           contenedorCarta3.value.push(cartaJson)
-          let posicion = contenedorCartaOpciones.value.findIndex((carta) => carta.id === cartaJson.id)
+          let posicion = contenedorCartaOpciones.value.findIndex(
+            (carta) => carta.id === cartaJson.id
+          )
           contenedorCartaOpciones.value.splice(posicion, 1)
         } else {
           console.log('No se guarda')
@@ -349,7 +445,9 @@ const onDrop = (contenedor) => {
       case 'contenedor4':
         if (respuesta === true) {
           contenedorCarta4.value.push(cartaJson)
-          let posicion = contenedorCartaOpciones.value.findIndex((carta) => carta.id === cartaJson.id)
+          let posicion = contenedorCartaOpciones.value.findIndex(
+            (carta) => carta.id === cartaJson.id
+          )
           contenedorCartaOpciones.value.splice(posicion, 1)
         } else {
           console.log('No se guarda')

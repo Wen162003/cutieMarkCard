@@ -1,5 +1,8 @@
 <template>
-  <footer class="flex bg-opacity-5 bg-purple-800 w-full fixed bottom-0 px-32">
+  <VistaOpciones :visible="fondos.show" 
+  @close="fondos.show = false" />
+  
+  <footer class="flex bg-opacity-50 bg-gray-400 w-full fixed bottom-0 px-32 h-12">
     <div class="flex gap-4 w-1/2">
       <button v-if="primerBoton" @click="modoOscuro">
         <svg
@@ -37,33 +40,70 @@
       <button v-else @click="modoOscuro">
         <svg
           xmlns="http://www.w3.org/2000/svg"
+          width="35"
+          height="35"
           viewBox="0 0 24 24"
-          fill="currentColor"
-          class="size-8 fill-white"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-moon-star text-white"
         >
-          <path
-            fill-rule="evenodd"
-            d="M9.528 1.718a.75.75 0 0 1 .162.819A8.97 8.97 0 0 0 9 6a9 9 0 0 0 9 9 8.97 8.97 0 0 0 3.463-.69.75.75 0 0 1 .981.98 10.503 10.503 0 0 1-9.694 6.46c-5.799 0-10.5-4.7-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 0 1 .818.162Z"
-            clip-rule="evenodd"
-          />
+          <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9" />
+          <path d="M20 3v4" />
+          <path d="M22 5h-4" />
         </svg>
       </button>
-      <button class="bg-green-700 p-3">fondo</button>
-      <button class="bg-blue-900 p-3">fondo</button>
-      <button class="bg-slate-300 p-3">+</button>
+      <div class="flex gap-4 items-center">
+        <button
+          class="border-2 border-cafe rounded-lg w-[70px] h-9 bg-[url('../assets/Fondo2.png')] bg-cover bg-center"
+        ></button>
+
+        <button
+          class="border-2 border-cafe rounded-lg w-[70px] h-9 bg-[url('../assets/Fondo.png')] bg-cover bg-center"
+        ></button>
+        <button
+          class="p-1.5 rounded-md bg-cafe text-white shadow-md shadow-cafe/50 border border-cafe/80 hover:bg-opacity-90 transition duration-200 flex items-center justify-center w-8 h-8"
+          @click="fondos.show = true"
+        >
+          <span class="text-lg font-bold">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-plus"
+            >
+              <path d="M5 12h14" />
+              <path d="M12 5v14" />
+            </svg>
+          </span>
+        </button>
+      </div>
     </div>
 
-    <div class="flex gap-6 w-1/2 items-center">
-      <button class="bg-slate-400 p-3">||</button>
-      <p class="text-lg">00:00</p>
+    <div class="flex gap-4 items-center">
+      <button
+        class="p-1.5 rounded-md bg-cafe text-white shadow-md shadow-cafe/50 border border-cafe/80 hover:bg-opacity-90 transition duration-200 flex items-center justify-center w-8 h-8"
+      >
+        <span class="text-lg"> ❚❚ </span>
+      </button>
+      <p class="text-lg font-bold text-white tracking-wide">00:00</p>
     </div>
   </footer>
 </template>
 
 <script setup>
 import { ref } from 'vue'
-
+import VistaOpciones from '../views/vistasImg/VistaOpciones.vue'
 const primerBoton = ref(true)
+const fondos = ref({ show: false })
 
 const modoOscuro = () => {
   primerBoton.value = !primerBoton.value
