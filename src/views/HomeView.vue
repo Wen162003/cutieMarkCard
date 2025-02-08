@@ -6,7 +6,7 @@
     <nav-component class="relative z-10" />
 
     <main class="flex w-full h-screen relative justify-center items-center">
-      <img src="../assets/Fondo2.png" alt="Fondo" class="absolute top-10  object-fill" />
+      <img src="https://res.cloudinary.com/dpqutwvio/image/upload/v1738980428/Fondo2_edhriw.jpg" alt="Fondo" class="absolute top-10  object-fill" />
       <div
         class="absolute bg-opacity-50 bg-blue-300 w-1/3 h-96 flex justify-center items-center py-6 rounded-lg"
       >

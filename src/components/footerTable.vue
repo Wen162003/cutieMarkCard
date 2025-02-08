@@ -1,7 +1,7 @@
 <template>
-  <VistaOpciones :visible="fondos.show" 
+  <VistaOpciones :visible="fondos.show"
   @close="fondos.show = false" />
-  
+
   <footer class="flex bg-opacity-50 bg-gray-400 w-full fixed bottom-0 px-32 h-12">
     <div class="flex gap-4 w-1/2">
       <button v-if="primerBoton" @click="modoOscuro">
@@ -57,11 +57,11 @@
       </button>
       <div class="flex gap-4 items-center">
         <button
-          class="border-2 border-cafe rounded-lg w-[70px] h-9 bg-[url('../assets/Fondo2.png')] bg-cover bg-center"
+          class="border-2 border-cafe rounded-lg w-[70px] h-9 bg-[url('https://res.cloudinary.com/dpqutwvio/image/upload/v1738980428/Fondo2_edhriw.jpg')] bg-cover bg-center"
         ></button>
 
         <button
-          class="border-2 border-cafe rounded-lg w-[70px] h-9 bg-[url('../assets/Fondo.png')] bg-cover bg-center"
+          class="border-2 border-cafe rounded-lg w-[70px] h-9 bg-[url('https://res.cloudinary.com/dpqutwvio/image/upload/v1738980428/Fondo2_edhriw.jpg')] bg-cover bg-center"
         ></button>
         <button
           class="p-1.5 rounded-md bg-cafe text-white shadow-md shadow-cafe/50 border border-cafe/80 hover:bg-opacity-90 transition duration-200 flex items-center justify-center w-8 h-8"

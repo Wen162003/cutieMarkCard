@@ -1,6 +1,6 @@
 <template>
-  <div class="relative flex flex-col justify-start pt-24 h-screen">
-    <img src="../assets/Fondo2.png" alt="Fondo" class="absolute top-10 object-fill -z-10" />
+  <div class="relative flex flex-col justify-start pt-24 h-screen overflow-hidden">
+    <img src="https://res.cloudinary.com/dpqutwvio/image/upload/v1738980428/Fondo2_edhriw.jpg" alt="Fondo" class="absolute top-10 object-fill -z-10" />
     <navComponent>
       <div class="flex justify-end gap-4">
         <button
