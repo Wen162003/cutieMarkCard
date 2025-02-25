@@ -1,45 +1,23 @@
 <template>
-  <div class="relative flex flex-col justify-start pt-24 h-screen overflow-hidden">
-    <img src="https://res.cloudinary.com/dpqutwvio/image/upload/v1738980428/Fondo2_edhriw.jpg" alt="Fondo" class="absolute top-10 object-fill -z-10" />
+  <div :style="{ backgroundImage: `url(${store.fondoSeleccionado})` }"
+    class="relative flex flex-col justify-start pt-24 h-screen bg-cover bg-center overflow-hidden">
     <navComponent>
       <div class="flex justify-end gap-4">
-        <button
-          type="button"
-          class="text-white bg-gradient-to-r flex gap-1 from-[#6b4226] via-[#6b4226] to-[#6b4226] hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-[#8b5a2b] dark:focus:ring-[#5a3e36] shadow-lg shadow-[#8b5a2b]/50 dark:shadow-lg dark:shadow-[#5a3e36]/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="lucide lucide-undo-2"
-          >
+        <button type="button"
+          class="text-white bg-gradient-to-r flex gap-1 from-[#6b4226] via-[#6b4226] to-[#6b4226] hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-[#8b5a2b] dark:focus:ring-[#5a3e36] shadow-lg shadow-[#8b5a2b]/50 dark:shadow-lg dark:shadow-[#5a3e36]/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-undo-2">
             <path d="M9 14 4 9l5-5" />
             <path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5a5.5 5.5 0 0 1-5.5 5.5H11" />
           </svg>
           <p>deshacer</p>
         </button>
-        <button
-          type="button"
-          class="text-white flex gap-1 bg-gradient-to-r from-[#6b4226] via-[#6b4226] to-[#6b4226] hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-[#8b5a2b] dark:focus:ring-[#5a3e36] shadow-lg shadow-[#8b5a2b]/50 dark:shadow-lg dark:shadow-[#5a3e36]/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="lucide lucide-align-justify"
-          >
+        <button type="button"
+          class="text-white flex gap-1 bg-gradient-to-r from-[#6b4226] via-[#6b4226] to-[#6b4226] hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-[#8b5a2b] dark:focus:ring-[#5a3e36] shadow-lg shadow-[#8b5a2b]/50 dark:shadow-lg dark:shadow-[#5a3e36]/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-align-justify">
             <path d="M3 12h18" />
             <path d="M3 18h18" />
             <path d="M3 6h18" />
@@ -51,13 +29,8 @@
 
     <div class="grid grid-rows-2 grid-cols-7 gap-3 pl-5 pr-80">
       <div class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl">
-        <div
-          v-for="(carta, index) in cartas"
-          :key="index"
-          v-show="index === 0"
-          @click="moverCarta(carta)"
-          class="bg-blue-500 w-28 h-36 rounded-xl cursor-pointer"
-        >
+        <div v-for="(carta, index) in cartas" :key="index" v-show="index === 0" @click="moverCarta(carta)"
+          class="bg-blue-500 w-28 h-36 rounded-xl cursor-pointer">
           <p>{{ carta.numero }}</p>
           <p>{{ carta.forma }}</p>
           <p>{{ carta.color }}</p>
@@ -65,115 +38,65 @@
       </div>
 
       <div class="w-28 h-36 col-span-2">
-        <div
-          v-for="(carta, index) in contenedorCartaOpciones"
-          :key="index"
-          style="user-select: none"
-          :draggable="true"
-          @dragstart="onDragStart(carta)"
-          v-show="index == contenedorCartaOpciones.length - 1"
-          class="bg-blue-500 w-28 h-36 rounded-xl cursor-grab"
-        >
+        <div v-for="(carta, index) in contenedorCartaOpciones" :key="index" style="user-select: none" :draggable="true"
+          @dragstart="onDragStart(carta)" v-show="index == contenedorCartaOpciones.length - 1"
+          class="bg-blue-500 w-28 h-36 rounded-xl cursor-grab">
           <p>{{ carta.numero }}</p>
           <p>{{ carta.forma }}</p>
           <p>{{ carta.color }}</p>
         </div>
       </div>
 
-      <div
-        class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl"
-        @dragover.prevent
-        @drop="onDrop('contenedor1')"
-      >
-        <div
-          v-for="(carta, index) in contenedorCarta"
-          :key="index"
-          v-show="index == contenedorCarta.length - 1"
-          class="bg-blue-500 w-28 h-36 rounded-xl"
-        >
+      <div class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl" @dragover.prevent
+        @drop="onDrop('contenedor1')">
+        <div v-for="(carta, index) in contenedorCarta" :key="index" v-show="index == contenedorCarta.length - 1"
+          class="bg-blue-500 w-28 h-36 rounded-xl">
           <p>{{ carta.numero }}</p>
           <p>{{ carta.forma }}</p>
           <p>{{ carta.color }}</p>
         </div>
       </div>
-      <div
-        class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl"
-        @dragover.prevent
-        @drop="onDrop('contenedor2')"
-      >
-        <div
-          v-for="(carta, index) in contenedorCarta2"
-          :key="index"
-          v-show="index == contenedorCarta2.length - 1"
-          class="bg-blue-500 w-28 h-36 rounded-xl"
-        >
+      <div class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl" @dragover.prevent
+        @drop="onDrop('contenedor2')">
+        <div v-for="(carta, index) in contenedorCarta2" :key="index" v-show="index == contenedorCarta2.length - 1"
+          class="bg-blue-500 w-28 h-36 rounded-xl">
           <p>{{ carta.numero }}</p>
           <p>{{ carta.forma }}</p>
           <p>{{ carta.color }}</p>
         </div>
       </div>
-      <div
-        class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl"
-        @dragover.prevent
-        @drop="onDrop('contenedor3')"
-      >
-        <div
-          v-for="(carta, index) in contenedorCarta3"
-          :key="index"
-          v-show="index == contenedorCarta3.length - 1"
-          class="bg-blue-500 w-28 h-36 rounded-xl"
-        >
+      <div class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl" @dragover.prevent
+        @drop="onDrop('contenedor3')">
+        <div v-for="(carta, index) in contenedorCarta3" :key="index" v-show="index == contenedorCarta3.length - 1"
+          class="bg-blue-500 w-28 h-36 rounded-xl">
           <p>{{ carta.numero }}</p>
           <p>{{ carta.forma }}</p>
           <p>{{ carta.color }}</p>
         </div>
       </div>
-      <div
-        class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl"
-        @dragover.prevent
-        @drop="onDrop('contenedor4')"
-      >
-        <div
-          v-for="(carta, index) in contenedorCarta4"
-          :key="index"
-          v-show="index == contenedorCarta4.length - 1"
-          class="bg-blue-500 w-28 h-36 rounded-xl"
-        >
+      <div class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl" @dragover.prevent
+        @drop="onDrop('contenedor4')">
+        <div v-for="(carta, index) in contenedorCarta4" :key="index" v-show="index == contenedorCarta4.length - 1"
+          class="bg-blue-500 w-28 h-36 rounded-xl">
           <p>{{ carta.numero }}</p>
           <p>{{ carta.forma }}</p>
           <p>{{ carta.color }}</p>
         </div>
       </div>
       <div class="w-28 h-36 border-2bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl">
-        <div
-          v-for="(carta, index) in contenedorCarta5"
-          :key="index"
-          class="bg-blue-500 border-2 border-pink-950 w-28 h-36 rounded-xl"
-          :style="claseCarta(index)"
-        >
+        <div v-for="(carta, index) in contenedorCarta5" :key="index"
+          class="bg-blue-500 border-2 border-pink-950 w-28 h-36 rounded-xl" :style="claseCarta(index)">
           <p>{{ carta.numero }}</p>
           <p>{{ carta.forma }}</p>
           <p>{{ carta.color }}</p>
         </div>
       </div>
-      <div
-        class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl"
-      ></div>
-      <div
-        class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl"
-      ></div>
-      <div
-        class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl"
-      ></div>
-      <div
-        class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl"
-      ></div>
-      <div
-        class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl"
-      ></div>
-      <div
-        class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl"
-      ></div>
+      <div class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl"></div>
+      <div class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl"></div>
+      <div class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl"></div>
+      <div class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl"></div>
+      <div class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl"></div>
+      <div class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl"></div>
     </div>
     <footerTable />
   </div>
@@ -182,6 +105,7 @@
 <script setup>
 import navComponent from '@/components/navComponent.vue'
 import footerTable from '@/components/footerTable.vue'
+import { useFondos } from '@/stores/useFondos'
 
 import { ref } from 'vue'
 
@@ -242,6 +166,7 @@ const contenedorCarta = ref([])
 const contenedorCarta2 = ref([])
 const contenedorCarta3 = ref([])
 const contenedorCarta4 = ref([])
+const store = useFondos()
 
 const contenedorCarta5 = ref([
   {

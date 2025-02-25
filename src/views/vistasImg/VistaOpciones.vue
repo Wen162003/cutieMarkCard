@@ -8,16 +8,11 @@
       <!-- Contenido del modal con grid mejor organizado -->
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
         <button
-          class="border-2 border-cafe rounded-lg w-full h-24 bg-[url('https://res.cloudinary.com/dpqutwvio/image/upload/v1738980654/Fondo_hfrrfu.webp')] bg-cover bg-center"
-        ></button>
-        <button
-          class="border-2 border-cafe rounded-lg w-full h-24 bg-[url('https://res.cloudinary.com/dpqutwvio/image/upload/v1738980428/Fondo2_edhriw.jpg')] bg-cover bg-center"
-        ></button>
-        <button
-          class="border-2 border-cafe rounded-lg w-full h-24 bg-[url('https://res.cloudinary.com/dpqutwvio/image/upload/v1738980428/Fondo2_edhriw.jpg')] bg-cover bg-center"
-        ></button>
-        <button
-          class="border-2 border-cafe rounded-lg w-full h-24 bg-[url('https://res.cloudinary.com/dpqutwvio/image/upload/v1738980428/Fondo2_edhriw.jpg')] bg-cover bg-center"
+          v-for="(image, index) in store.opciones "
+          :key="index"
+          @click="store.seleccionarFondo(index)"
+          class="border-2 border-cafe rounded-lg w-full h-24 bg-cover bg-center"
+          :style="{ backgroundImage: `url(${image})` }"
         ></button>
       </div>
 
@@ -35,8 +30,18 @@
   </div>
 </template>
 
-  <script setup>
+<script setup>
+import { useFondos } from '@/stores/useFondos';
+
 defineProps({
   visible: Boolean,
-})
+});
+
+const store = useFondos()
+
+
+
+
+
+
 </script>
