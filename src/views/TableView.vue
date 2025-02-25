@@ -1,6 +1,10 @@
 <template>
-  <div class="relative flex flex-col justify-start pt-24 h-screen overflow-hidden">
-    <img src="https://res.cloudinary.com/dpqutwvio/image/upload/v1738980428/Fondo2_edhriw.jpg" alt="Fondo" class="absolute top-10 object-fill -z-10" />
+  <div
+    style="
+      background-image: url('https://res.cloudinary.com/dpqutwvio/image/upload/v1738980428/Fondo2_edhriw.jpg');
+    "
+    class="relative flex flex-col justify-start pt-24 h-screen overflow-hidden"
+  >
     <navComponent>
       <div class="flex justify-end gap-4">
         <button
@@ -27,6 +31,7 @@
         <button
           type="button"
           class="text-white flex gap-1 bg-gradient-to-r from-[#6b4226] via-[#6b4226] to-[#6b4226] hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-[#8b5a2b] dark:focus:ring-[#5a3e36] shadow-lg shadow-[#8b5a2b]/50 dark:shadow-lg dark:shadow-[#5a3e36]/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+          @click="menu.show = !menu.show"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -48,36 +53,32 @@
         </button>
       </div>
     </navComponent>
-
+    <menuView :visible="menu.show" />
     <div class="grid grid-rows-2 grid-cols-7 gap-3 pl-5 pr-80">
       <div class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl">
-        <div
+        <cartaComponent
           v-for="(carta, index) in cartas"
-          :key="index"
           v-show="index === 0"
           @click="moverCarta(carta)"
-          class="bg-blue-500 w-28 h-36 rounded-xl cursor-pointer"
-        >
-          <p>{{ carta.numero }}</p>
-          <p>{{ carta.forma }}</p>
-          <p>{{ carta.color }}</p>
-        </div>
+          :key="index"
+          :numero="carta.numero"
+          :forma="carta.forma"
+          :color="carta.color"
+        />
       </div>
 
       <div class="w-28 h-36 col-span-2">
-        <div
+        <cartaComponent
           v-for="(carta, index) in contenedorCartaOpciones"
-          :key="index"
           style="user-select: none"
           :draggable="true"
           @dragstart="onDragStart(carta)"
+          :key="index + '-0'"
           v-show="index == contenedorCartaOpciones.length - 1"
-          class="bg-blue-500 w-28 h-36 rounded-xl cursor-grab"
-        >
-          <p>{{ carta.numero }}</p>
-          <p>{{ carta.forma }}</p>
-          <p>{{ carta.color }}</p>
-        </div>
+          :numero="carta.numero"
+          :forma="carta.forma"
+          :color="carta.color"
+        />
       </div>
 
       <div
@@ -85,95 +86,127 @@
         @dragover.prevent
         @drop="onDrop('contenedor1')"
       >
-        <div
+        <cartaComponent
           v-for="(carta, index) in contenedorCarta"
-          :key="index"
+          :key="index + '-1'"
           v-show="index == contenedorCarta.length - 1"
-          class="bg-blue-500 w-28 h-36 rounded-xl"
-        >
-          <p>{{ carta.numero }}</p>
-          <p>{{ carta.forma }}</p>
-          <p>{{ carta.color }}</p>
-        </div>
+          :numero="carta.numero"
+          :forma="carta.forma"
+          :color="carta.color"
+        />
       </div>
       <div
         class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl"
         @dragover.prevent
         @drop="onDrop('contenedor2')"
       >
-        <div
+        <cartaComponent
           v-for="(carta, index) in contenedorCarta2"
-          :key="index"
+          :key="index + '-2'"
           v-show="index == contenedorCarta2.length - 1"
-          class="bg-blue-500 w-28 h-36 rounded-xl"
-        >
-          <p>{{ carta.numero }}</p>
-          <p>{{ carta.forma }}</p>
-          <p>{{ carta.color }}</p>
-        </div>
+          :numero="carta.numero"
+          :forma="carta.forma"
+          :color="carta.color"
+        />
       </div>
       <div
         class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl"
         @dragover.prevent
         @drop="onDrop('contenedor3')"
       >
-        <div
+        <cartaComponent
           v-for="(carta, index) in contenedorCarta3"
-          :key="index"
+          :key="index + '-3'"
           v-show="index == contenedorCarta3.length - 1"
-          class="bg-blue-500 w-28 h-36 rounded-xl"
-        >
-          <p>{{ carta.numero }}</p>
-          <p>{{ carta.forma }}</p>
-          <p>{{ carta.color }}</p>
-        </div>
+          :numero="carta.numero"
+          :forma="carta.forma"
+          :color="carta.color"
+        />
       </div>
       <div
         class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl"
         @dragover.prevent
         @drop="onDrop('contenedor4')"
       >
-        <div
+        <cartaComponent
           v-for="(carta, index) in contenedorCarta4"
-          :key="index"
+          :key="index + '-4'"
           v-show="index == contenedorCarta4.length - 1"
-          class="bg-blue-500 w-28 h-36 rounded-xl"
-        >
-          <p>{{ carta.numero }}</p>
-          <p>{{ carta.forma }}</p>
-          <p>{{ carta.color }}</p>
-        </div>
+          :numero="carta.numero"
+          :forma="carta.forma"
+          :color="carta.color"
+        />
       </div>
       <div class="w-28 h-36 border-2bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl">
-        <div
+        <cartaComponent
           v-for="(carta, index) in contenedorCarta5"
-          :key="index"
-          class="bg-blue-500 border-2 border-pink-950 w-28 h-36 rounded-xl"
+          :key="index + '-5'"
           :style="claseCarta(index)"
-        >
-          <p>{{ carta.numero }}</p>
-          <p>{{ carta.forma }}</p>
-          <p>{{ carta.color }}</p>
-        </div>
+          :numero="carta.numero"
+          :forma="carta.forma"
+          :color="carta.color"
+        />
       </div>
-      <div
-        class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl"
-      ></div>
-      <div
-        class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl"
-      ></div>
-      <div
-        class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl"
-      ></div>
-      <div
-        class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl"
-      ></div>
-      <div
-        class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl"
-      ></div>
-      <div
-        class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl"
-      ></div>
+      <div class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl">
+        <cartaComponent
+          v-for="(carta, index) in contenedorCarta6"
+          :key="index + '-6'"
+          :style="claseCarta(index)"
+          :numero="carta.numero"
+          :forma="carta.forma"
+          :color="carta.color"
+        />
+      </div>
+      <div class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl">
+        <cartaComponent
+          v-for="(carta, index) in contenedorCarta7"
+          :key="index + '-7'"
+          :style="claseCarta(index)"
+          :numero="carta.numero"
+          :forma="carta.forma"
+          :color="carta.color"
+        />
+      </div>
+      <div class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl">
+        <cartaComponent
+          v-for="(carta, index) in contenedorCarta8"
+          :key="index + '-8'"
+          :style="claseCarta(index)"
+          :numero="carta.numero"
+          :forma="carta.forma"
+          :color="carta.color"
+        />
+      </div>
+      <div class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl">
+        <cartaComponent
+          v-for="(carta, index) in contenedorCarta9"
+          :key="index + '-9'"
+          :style="claseCarta(index)"
+          :numero="carta.numero"
+          :forma="carta.forma"
+          :color="carta.color"
+        />
+      </div>
+      <div class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl">
+        <cartaComponent
+          v-for="(carta, index) in contenedorCarta10"
+          :key="index + '-10'"
+          :style="claseCarta(index)"
+          :numero="carta.numero"
+          :forma="carta.forma"
+          :color="carta.color"
+        />
+      </div>
+      <div class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl">
+        <cartaComponent
+          v-for="(carta, index) in contenedorCarta11"
+          :key="index + '-11'"
+          :style="claseCarta(index)"
+          :numero="carta.numero"
+          :forma="carta.forma"
+          :color="carta.color"
+        />
+      </div>
     </div>
     <footerTable />
   </div>
@@ -182,6 +215,8 @@
 <script setup>
 import navComponent from '@/components/navComponent.vue'
 import footerTable from '@/components/footerTable.vue'
+import cartaComponent from '@/components/cartaComponent.vue'
+import menuView from './menuView.vue'
 
 import { ref } from 'vue'
 
@@ -242,8 +277,32 @@ const contenedorCarta = ref([])
 const contenedorCarta2 = ref([])
 const contenedorCarta3 = ref([])
 const contenedorCarta4 = ref([])
+const menu = ref({ show: false })
 
 const contenedorCarta5 = ref([
+  {
+    id: 1,
+    color: 'rosado',
+    numero: 1,
+    forma: 'mariposa',
+  },
+])
+
+const contenedorCarta6 = ref([
+  {
+    id: 1,
+    color: 'rosado',
+    numero: 1,
+    forma: 'mariposa',
+  },
+  {
+    id: 2,
+    color: 'morado',
+    numero: 1,
+    forma: 'manzana',
+  },
+])
+const contenedorCarta7 = ref([
   {
     id: 1,
     color: 'rosado',
@@ -263,7 +322,147 @@ const contenedorCarta5 = ref([
     forma: 'manzana',
   },
 ])
+const contenedorCarta8 = ref([
+  {
+    id: 1,
+    color: 'rosado',
+    numero: 1,
+    forma: 'mariposa',
+  },
+  {
+    id: 2,
+    color: 'morado',
+    numero: 1,
+    forma: 'manzana',
+  },
+  {
+    id: 3,
+    color: 'blue',
+    numero: 2,
+    forma: 'manzana',
+  },
 
+  {
+    id: 4,
+    color: 'blue',
+    numero: 4,
+    forma: 'manzana',
+  },
+])
+const contenedorCarta9 = ref([
+  {
+    id: 1,
+    color: 'rosado',
+    numero: 1,
+    forma: 'mariposa',
+  },
+  {
+    id: 2,
+    color: 'morado',
+    numero: 1,
+    forma: 'manzana',
+  },
+  {
+    id: 3,
+    color: 'blue',
+    numero: 2,
+    forma: 'manzana',
+  },
+  {
+    id: 4,
+    color: 'blue',
+    numero: 2,
+    forma: 'manzana',
+  },
+  {
+    id: 5,
+    color: 'blue',
+    numero: 2,
+    forma: 'manzana',
+  },
+])
+const contenedorCarta10 = ref([
+  {
+    id: 1,
+    color: 'rosado',
+    numero: 1,
+    forma: 'mariposa',
+  },
+  {
+    id: 2,
+    color: 'morado',
+    numero: 1,
+    forma: 'manzana',
+  },
+  {
+    id: 3,
+    color: 'blue',
+    numero: 2,
+    forma: 'manzana',
+  },
+  {
+    id: 4,
+    color: 'blue',
+    numero: 2,
+    forma: 'manzana',
+  },
+  {
+    id: 5,
+    color: 'blue',
+    numero: 2,
+    forma: 'manzana',
+  },
+  {
+    id: 6,
+    color: 'blue',
+    numero: 2,
+    forma: 'manzana',
+  },
+])
+const contenedorCarta11 = ref([
+  {
+    id: 1,
+    color: 'rosado',
+    numero: 1,
+    forma: 'mariposa',
+  },
+  {
+    id: 2,
+    color: 'morado',
+    numero: 1,
+    forma: 'manzana',
+  },
+  {
+    id: 3,
+    color: 'blue',
+    numero: 2,
+    forma: 'manzana',
+  },
+  {
+    id: 4,
+    color: 'blue',
+    numero: 2,
+    forma: 'manzana',
+  },
+  {
+    id: 5,
+    color: 'blue',
+    numero: 2,
+    forma: 'manzana',
+  },
+  {
+    id: 6,
+    color: 'blue',
+    numero: 2,
+    forma: 'manzana',
+  },
+  {
+    id: 7,
+    color: 'blue',
+    numero: 2,
+    forma: 'manzana',
+  },
+])
 const claseCarta = (index) => {
   if (index == 0) {
     return { marginTop: `0 px` }
