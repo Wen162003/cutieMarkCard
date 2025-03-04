@@ -13,6 +13,11 @@ const router = createRouter({
       name: 'tablero',
       component: () => import('../views/TableView.vue'),
     },
+    {
+      path: '/historia',
+      name: 'historia',
+      component: () => import('../views/Modales/historiaView.vue')
+    }
   ],
 })
 
