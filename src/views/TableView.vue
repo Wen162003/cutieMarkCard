@@ -1,95 +1,206 @@
 <template>
-  <div :style="{ backgroundImage: `url(${store.fondoSeleccionado})` }"
-    class="relative flex flex-col justify-start pt-24 h-screen bg-cover bg-center overflow-hidden">
+  <div
+    :style="{ backgroundImage: `url(${store.fondoSeleccionado})` }"
+    class="relative flex flex-col justify-start pt-24 h-screen bg-cover bg-center overflow-hidden"
+  >
     <navComponent>
       <div class="flex justify-end gap-4">
-        <button type="button"
-          class="text-white bg-gradient-to-r flex gap-1 from-[#6b4226] via-[#6b4226] to-[#6b4226] hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-[#8b5a2b] dark:focus:ring-[#5a3e36] shadow-lg shadow-[#8b5a2b]/50 dark:shadow-lg dark:shadow-[#5a3e36]/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-            class="lucide lucide-undo-2">
+        <button
+          type="button"
+          class="text-white bg-gradient-to-r flex gap-1 from-[#6b4226] via-[#6b4226] to-[#6b4226] hover:bg-gradient-to-br shadow-lg shadow-[#8b5a2b]/50 dark:shadow-lg dark:shadow-[#5a3e36]/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-undo-2"
+          >
             <path d="M9 14 4 9l5-5" />
             <path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5a5.5 5.5 0 0 1-5.5 5.5H11" />
           </svg>
           <p>deshacer</p>
         </button>
-        <button type="button" @click="menu.show = !menu.show"
-          class="text-white flex gap-1 bg-gradient-to-r from-[#6b4226] via-[#6b4226] to-[#6b4226] hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-[#8b5a2b] dark:focus:ring-[#5a3e36] shadow-lg shadow-[#8b5a2b]/50 dark:shadow-lg dark:shadow-[#5a3e36]/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-            class="lucide lucide-align-justify">
-            <path d="M3 12h18" />
-            <path d="M3 18h18" />
-            <path d="M3 6h18" />
-          </svg>
-          <p>Menu</p>
-        </button>
+        <menuView />
       </div>
     </navComponent>
-    <menuView :visible="menu.show"/>
-    <div class="grid grid-rows-2 grid-cols-7 gap-3 pl-5 pr-80">
+    <div
+      class="grid grid-rows-2 grid-cols-7 gap-3 pl-5 pr-80"
+      :class="storeTemporizador.zindez ? '' : '-z-10'"
+    >
       <div class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl">
-        <cartaComponent v-for="(carta, index) in cartas" v-show="index === 0" @click="moverCarta(carta)" :key="index"
-          :numero="carta.numero" :forma="carta.forma" :color="carta.color" />
+        <cartaComponent
+          v-for="(carta, index) in cartas"
+          v-show="index === 0"
+          @click="moverCarta(carta)"
+          :key="index"
+          :numero="carta.numero"
+          :forma="carta.forma"
+          :color="carta.color"
+          cursor="cursor-pointer"
+        />
       </div>
 
       <div class="w-28 h-36 col-span-2">
-        <cartaComponent v-for="(carta, index) in contenedorCartaOpciones" style="user-select: none" :draggable="true"
-          @dragstart="onDragStart(carta)" :key="index + '-0'" v-show="index == contenedorCartaOpciones.length - 1"
-          :numero="carta.numero" :forma="carta.forma" :color="carta.color" />
+        <cartaComponent
+          v-for="(carta, index) in contenedorCartaOpciones"
+          style="user-select: none"
+          :draggable="true"
+          @dragstart="onDragStart(carta)"
+          :key="index + '-0'"
+          v-show="index == contenedorCartaOpciones.length - 1"
+          :numero="carta.numero"
+          :forma="carta.forma"
+          :color="carta.color"
+        />
       </div>
 
-      <div class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl" @dragover.prevent
-        @drop="onDrop('contenedor1')">
-        <cartaComponent v-for="(carta, index) in contenedorCarta" :key="index + '-1'"
-          v-show="index == contenedorCarta.length - 1" :numero="carta.numero" :forma="carta.forma"
-          :color="carta.color" />
+      <div
+        class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl"
+        @dragover.prevent
+        @drop="onDrop('contenedor1')"
+      >
+        <cartaComponent
+          v-for="(carta, index) in contenedorCarta"
+          :draggable="true"
+          @dragstart="onDragStart(carta)"
+          :key="index + '-1'"
+          v-show="index == contenedorCarta.length - 1"
+          :numero="carta.numero"
+          :forma="carta.forma"
+          :color="carta.color"
+        />
       </div>
-      <div class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl" @dragover.prevent
-        @drop="onDrop('contenedor2')">
-        <cartaComponent v-for="(carta, index) in contenedorCarta2" :key="index + '-2'"
-          v-show="index == contenedorCarta2.length - 1" :numero="carta.numero" :forma="carta.forma"
-          :color="carta.color" />
+      <div
+        class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl"
+        @dragover.prevent
+        @drop="onDrop('contenedor2')"
+      >
+        <cartaComponent
+          v-for="(carta, index) in contenedorCarta2"
+          :key="index + '-2'"
+          v-show="index == contenedorCarta2.length - 1"
+          :numero="carta.numero"
+          :forma="carta.forma"
+          :color="carta.color"
+        />
       </div>
-      <div class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl" @dragover.prevent
-        @drop="onDrop('contenedor3')">
-        <cartaComponent v-for="(carta, index) in contenedorCarta3" :key="index + '-3'"
-          v-show="index == contenedorCarta3.length - 1" :numero="carta.numero" :forma="carta.forma"
-          :color="carta.color" />
+      <div
+        class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl"
+        @dragover.prevent
+        @drop="onDrop('contenedor3')"
+      >
+        <cartaComponent
+          v-for="(carta, index) in contenedorCarta3"
+          :key="index + '-3'"
+          v-show="index == contenedorCarta3.length - 1"
+          :numero="carta.numero"
+          :forma="carta.forma"
+          :color="carta.color"
+        />
       </div>
-      <div class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl" @dragover.prevent
-        @drop="onDrop('contenedor4')">
-        <cartaComponent v-for="(carta, index) in contenedorCarta4" :key="index + '-4'"
-          v-show="index == contenedorCarta4.length - 1" :numero="carta.numero" :forma="carta.forma"
-          :color="carta.color" />
+      <div
+        class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl"
+        @dragover.prevent
+        @drop="onDrop('contenedor4')"
+      >
+        <cartaComponent
+          v-for="(carta, index) in contenedorCarta4"
+          :key="index + '-4'"
+          v-show="index == contenedorCarta4.length - 1"
+          :numero="carta.numero"
+          :forma="carta.forma"
+          :color="carta.color"
+        />
       </div>
       <div class="w-28 h-36 border-2bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl">
-        <cartaComponent v-for="(carta, index) in contenedorCarta5" :key="index + '-5'" :style="claseCarta(index)"
-          :numero="carta.numero" :forma="carta.forma" :color="carta.color" />
+        <cartaComponent
+          v-for="(carta, index) in contenedorCarta5"
+          :draggable="true"
+          @dragstart="onDragStart(carta)"
+          :key="index + '-5'"
+          :style="claseCarta(index)"
+          :numero="carta.numero"
+          :forma="carta.forma"
+          :color="carta.color"
+        />
       </div>
       <div class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl">
-        <cartaComponent v-for="(carta, index) in contenedorCarta6" :key="index + '-6'" :style="claseCarta(index)"
-          :numero="carta.numero" :forma="carta.forma" :color="carta.color" />
+        <cartaComponent
+          v-for="(carta, index) in contenedorCarta6"
+          :draggable="true"
+          @dragstart="onDragStart(carta)"
+          :key="index + '-6'"
+          :style="claseCarta(index)"
+          :numero="carta.numero"
+          :forma="carta.forma"
+          :color="carta.color"
+        />
       </div>
       <div class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl">
-        <cartaComponent v-for="(carta, index) in contenedorCarta7" :key="index + '-7'" :style="claseCarta(index)"
-          :numero="carta.numero" :forma="carta.forma" :color="carta.color" />
+        <cartaComponent
+          v-for="(carta, index) in contenedorCarta7"
+          :key="index + '-7'"
+          :style="claseCarta(index)"
+          :draggable="true"
+          @dragstart="onDragStart(carta)"
+          :numero="carta.numero"
+          :forma="carta.forma"
+          :color="carta.color"
+        />
       </div>
       <div class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl">
-        <cartaComponent v-for="(carta, index) in contenedorCarta8" :key="index + '-8'" :style="claseCarta(index)"
-          :numero="carta.numero" :forma="carta.forma" :color="carta.color" />
+        <cartaComponent
+          v-for="(carta, index) in contenedorCarta8"
+          :draggable="true"
+          @dragstart="onDragStart(carta)"
+          :key="index + '-8'"
+          :style="claseCarta(index)"
+          :numero="carta.numero"
+          :forma="carta.forma"
+          :color="carta.color"
+        />
       </div>
       <div class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl">
-        <cartaComponent v-for="(carta, index) in contenedorCarta9" :key="index + '-9'" :style="claseCarta(index)"
-          :numero="carta.numero" :forma="carta.forma" :color="carta.color" />
+        <cartaComponent
+          v-for="(carta, index) in contenedorCarta9"
+          :draggable="true"
+          @dragstart="onDragStart(carta)"
+          :key="index + '-9'"
+          :style="claseCarta(index)"
+          :numero="carta.numero"
+          :forma="carta.forma"
+          :color="carta.color"
+        />
       </div>
       <div class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl">
-        <cartaComponent v-for="(carta, index) in contenedorCarta10" :key="index + '-10'" :style="claseCarta(index)"
-          :numero="carta.numero" :forma="carta.forma" :color="carta.color" />
+        <cartaComponent
+          v-for="(carta, index) in contenedorCarta10"
+          :draggable="true"
+          @dragstart="onDragStart(carta)"
+          :key="index + '-10'"
+          :style="claseCarta(index)"
+          :numero="carta.numero"
+          :forma="carta.forma"
+          :color="carta.color"
+        />
       </div>
       <div class="w-28 h-36 border-2 bg-opacity-50 bg-customPinkclaro border-customPink rounded-xl">
-        <cartaComponent v-for="(carta, index) in contenedorCarta11" :key="index + '-11'" :style="claseCarta(index)"
-          :numero="carta.numero" :forma="carta.forma" :color="carta.color" />
+        <cartaComponent
+          v-for="(carta, index) in contenedorCarta11"
+          :draggable="true"
+          @dragstart="onDragStart(carta)"
+          :key="index + '-11'"
+          :style="claseCarta(index)"
+          :numero="carta.numero"
+          :forma="carta.forma"
+          :color="carta.color"
+        />
       </div>
     </div>
     <footerTable />
@@ -102,7 +213,7 @@ import footerTable from '@/components/footerTable.vue'
 import { useFondos } from '@/stores/useFondos'
 import cartaComponent from '@/components/cartaComponent.vue'
 import menuView from './Modales/menuView.vue'
-
+import { useTemporizador } from '@/stores/useTemporizador'
 import { ref } from 'vue'
 
 const cartas = ref([
@@ -163,7 +274,7 @@ const contenedorCarta2 = ref([])
 const contenedorCarta3 = ref([])
 const contenedorCarta4 = ref([])
 const store = useFondos()
-const menu = ref({ show: false })
+const storeTemporizador = useTemporizador()
 
 const contenedorCarta5 = ref([
   {
@@ -478,21 +589,23 @@ const onDragStart = (carta) => {
   // Guardar el elemento en el almacenamiento de datos arrastrados
   const cartaTexto = JSON.stringify(carta)
   localStorage.setItem('draggedItem', cartaTexto)
+  console.log('hola')
 }
 
 const moverCarta = (carta) => {
+  storeTemporizador.markCardMoved()
   contenedorCartaOpciones.value.push(carta)
   var posicion = cartas.value.findIndex((carta) => carta.id === carta.id)
   cartas.value.splice(posicion, 1)
 }
 
 const onDrop = (contenedor) => {
+  storeTemporizador.markCardMoved()
   const item = localStorage.getItem('draggedItem')
   if (item) {
     const cartaJson = JSON.parse(item)
     localStorage.removeItem('draggedItem')
     const respuesta = validacion(cartaJson, contenedor)
-
     switch (contenedor) {
       case 'contenedor1':
         if (respuesta) {

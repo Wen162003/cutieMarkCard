@@ -40,9 +40,4 @@ defineProps({
 
 const store = useFondos()
 
-
-
-
-
-
 </script>
